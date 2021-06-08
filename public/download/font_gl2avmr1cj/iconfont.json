@@ -1,0 +1,65 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "109754",
+      "name": "like",
+      "font_class": "like",
+      "unicode": "e629",
+      "unicode_decimal": 58921
+    },
+    {
+      "icon_id": "278300",
+      "name": "star",
+      "font_class": "star",
+      "unicode": "e634",
+      "unicode_decimal": 58932
+    },
+    {
+      "icon_id": "544931",
+      "name": "search",
+      "font_class": "search",
+      "unicode": "e8da",
+      "unicode_decimal": 59610
+    },
+    {
+      "icon_id": "1911699",
+      "name": "MAP PIN",
+      "font_class": "MAPPIN",
+      "unicode": "e711",
+      "unicode_decimal": 59153
+    },
+    {
+      "icon_id": "5119327",
+      "name": "comment",
+      "font_class": "comment",
+      "unicode": "e63b",
+      "unicode_decimal": 58939
+    },
+    {
+      "icon_id": "16619138",
+      "name": "movie",
+      "font_class": "movie",
+      "unicode": "e6cc",
+      "unicode_decimal": 59084
+    },
+    {
+      "icon_id": "20112533",
+      "name": "bx-camera-movie",
+      "font_class": "bx-camera-movie",
+      "unicode": "e639",
+      "unicode_decimal": 58937
+    },
+    {
+      "icon_id": "21730780",
+      "name": "my",
+      "font_class": "my",
+      "unicode": "e662",
+      "unicode_decimal": 58978
+    }
+  ]
+}
