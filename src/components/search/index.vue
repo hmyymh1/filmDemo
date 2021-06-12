@@ -2,28 +2,27 @@
     <div class="search_body">
         <div class="search_input">
             <div class="search_input_wrapper">
-                <input type="text">
+                <input type="text" v-model="searchValue" placeholder="作品を検索" >
             </div>
         </div>
-        <div class="search_result">
-            <h3>电影/电视剧/综艺</h3>
-            <ul>
-                <li>
-                    <div class="img"><img src="https://picsum.photos/200/300"></div>
+        <div class="search_result">            
+            <ul>                
+                <li v-for="item in searchList" :key="item.id">
+                    <div class="img"><img :src="item.thumbnail"></div>
                     <div class="info">
-                        <p><span>title</span><span>2</span></p>
-                        <p>aaaaaa</p>
-                        <p>bbbbbb</p>
-                        <p>2018-1-1</p>
+                        <h2>{{item.name}}</h2>
+                        <p>{{item.genre}}</p>
+                        <p>{{item.openDateString}} 公開</p>
+                        <p class="count">{{item.rating == 0 ? "- -" : item.rating.toFixed(1)}}</p>
                     </div>
                 </li>
-                <li>
-                    <div class="img"><img src="https://picsum.photos/200/300"></div>
+                <li v-for="item in searchListCommingSoon" :key="item.id">
+                    <div class="img"><img :src="item.thumbnail"></div>
                     <div class="info">
-                        <p><span>title</span><span>2</span></p>
-                        <p>aaaaaa</p>
-                        <p>bbbbbb</p>
-                        <p>2018-1-1</p>
+                        <h2>{{item.name}}</h2>
+                        <p>{{item.genre}}</p>
+                        <p>{{item.openDateString}} 公開</p>
+                        <p class="count">{{item.rating == 0 ? "- -" : item.rating.toFixed(1)}}</p>
                     </div>
                 </li>
             </ul>
@@ -33,6 +32,39 @@
 <script>
 export default {
     name: "search",
+
+    data(){
+        return {
+            MovieList: [],
+            MovieListCommingSoon : [],
+            searchValue : "",
+        }
+    },
+    
+    mounted(){
+        this.axios.get('http://127.0.0.1/api/test')
+                .then((res)=>{
+                    var msg = res.statusText;
+                    if (msg === "OK"){
+                        //console.log(res.data);
+                        this.MovieList = res.data.MovieList;
+                        this.MovieListCommingSoon = res.data.MovieListCommingSoon;
+                    }                    
+                });
+    },
+
+    computed:{
+        searchList(){
+            return this.MovieList.filter(
+                item => item.name.indexOf(this.searchValue) > 0
+            )
+        },
+        searchListCommingSoon(){
+            return this.MovieListCommingSoon.filter(
+                item => item.name.indexOf(this.searchValue) > 0
+            )
+        }
+    }
 }
 </script>
 <style lang="scss" scoped>
@@ -74,31 +106,45 @@ export default {
                 display: flex;
             }
             .img {
-                width: 60px;
+                width: 80px;
                 float: left;
                 img {
                     width: 100%;
                 }
             }
-            .info {
-                float: left;
-                margin-left: 15px;
+            .info {                
+                margin-left: 10px;
                 flex: 1;
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                h2 {
+                    font-size: 17px;
+                    line-height: 24px;
+                    width: 200px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    flex:1;
+                    margin-bottom: 10px;
+                    
+                }
                 p {
-                    height: 22px;
-                    display: flex;
+                    font-size: 13px;
+                    color: #666;
                     line-height: 22px;
-                    font-size: 12px;
-                    &:nth-of-type(1) {
-                        span:nth-of-type(1) {
-                            font-size: 18px;
-                            flex: 1;
-                        }
-                        span:nth-of-type(2) {
-                            font-size: 16px;
-                            color: #fc7103;
-                        }
-                    }    
+                    width: 200px;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;                  
+                }
+                .count {
+                    position: absolute;
+                    top: 0;
+                    right: 10px;
+                    text-align: right;
+                    font-weight: 700;
+                    color: #faaf00;
+                    font-size: 15px;                    
                 }
             }
         }

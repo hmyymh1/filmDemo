@@ -4,11 +4,6 @@ export default {
     component: () => import('@/views/movie'),
     children: [
         {
-            path: 'cityList',
-            name: 'cityList',
-            component: () => import('@/components/cityList'),
-        },
-        {
             path: 'nowPlaying',
             name: 'nowPlaying',
             component: () => import('@/components/nowPlaying'),

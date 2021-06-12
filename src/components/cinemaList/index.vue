@@ -1,60 +1,15 @@
 <template lang="">
     <div class="cinema_body">
         <ul>
-            <li>
+            <li v-for="cinema in cinemaList" :key="cinema.id">
                 <div class="name">
-                    <span>109シネマズグランベリーパーク</span>
+                    <span>{{cinema.name}}</span>
                 </div>
                 <div class="address">
-                    <span>東京都町田市鶴間3-4-1 グランベリーパーク内</span>
+                    <span>{{cinema.address}}</span>
                     <span><svg class="icon" aria-hidden="true">
                         <use xlink:href="#icon-MAPPIN"></use>
                     </svg>map</span>
-                </div>
-            </li>
-            <li>
-                <div class="name">
-                    <span>109シネマズグランベリーパーク</span>
-                </div>
-                <div class="address">
-                    <span>東京都町田市鶴間3-4-1 グランベリーパーク内</span>
-                    <span>map</span>
-                </div>
-            </li>
-            <li>
-                <div class="name">
-                    <span>109シネマズグランベリーパーク</span>
-                </div>
-                <div class="address">
-                    <span>東京都町田市鶴間3-4-1 グランベリーパーク内</span>
-                    <span>map</span>
-                </div>
-            </li>
-            <li>
-                <div class="name">
-                    <span>109シネマズグランベリーパーク</span>
-                </div>
-                <div class="address">
-                    <span>東京都町田市鶴間3-4-1 グランベリーパーク内</span>
-                    <span>map</span>
-                </div>
-            </li>
-            <li>
-                <div class="name">
-                    <span>109シネマズグランベリーパーク</span>
-                </div>
-                <div class="address">
-                    <span>東京都町田市鶴間3-4-1 グランベリーパーク内</span>
-                    <span>map</span>
-                </div>
-            </li>
-            <li>
-                <div class="name">
-                    <span>109シネマズグランベリーパーク</span>
-                </div>
-                <div class="address">
-                    <span>東京都町田市鶴間3-4-1 グランベリーパーク内</span>
-                    <span>map</span>
                 </div>
             </li>
         </ul>
@@ -63,6 +18,23 @@
 <script>
 export default {
     name: "cinemaList",
+
+    data(){
+        return {
+            cinemaList : [],
+        }
+    },
+
+    mounted(){
+        this.axios.get('http://127.0.0.1/api/test')
+            .then((res) =>{
+                var mgs = res.statusText;
+                if(mgs === "OK"){
+                    console.log(res.data.cinemaList);
+                    this.cinemaList = res.data.cinemaList;
+                }
+            })
+    }
 }
 </script>
 <style lang="scss" scoped>
@@ -80,9 +52,13 @@ export default {
             margin-bottom: 10px;
         }
         .address {
-            font-size: 18px;
-            span:nth-of-type(2) {
-                float: right;
+            font-size: 15px;
+            display: flex;
+            span:nth-of-type(1) {
+                flex: 1;
+            }
+            span:nth-of-type(2) {                
+                align-self: flex-end;
             }
         }
     }

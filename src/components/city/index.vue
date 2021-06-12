@@ -1,89 +1,77 @@
 <template lang="">
     <div class="city_select">
-        <select class="regionList">
-            <option value="北海道">北海道</option>
-            <option value="東北">東北</option>
-            <option value="関東" selected>関東</option>
-            <option value="甲信越・北陸">甲信越・北陸</option>
-            <option value="東海">東海</option>
-            <option value="近畿">近畿</option>
-            <option value="中・四国">中・四国</option>
-            <option value="九州・沖縄">九州・沖縄</option>
-            <option value="オンライン">オンライン</option>
-        </select>
-        <select class="prefectureList">
-            <option value="東京都" selected>東京都</option>
-            <option value="神奈川県">神奈川県</option>
-            <option value="埼玉県">埼玉県</option>
-            <option value="千葉県">千葉県</option>
-            <option value="茨城県">茨城県</option>
-            <option value="栃木県">栃木県</option>
-            <option value="群馬県">群馬県</option>
-        </select>
-        <select class="cityList">
-            <option value="" selected>全て</option>
-            <option value="渋谷">渋谷</option>
-            <option value="新宿">新宿</option>
-            <option value="有楽町">有楽町</option>
-            <option value="池袋">池袋</option>
-            <option value="銀座">銀座</option>
-            <option value="吉祥寺">吉祥寺</option>
-            <option value="蒲田">蒲田</option>
-            <option value="六本木">六本木</option>
-            <option value="錦糸町">錦糸町</option>
-            <option value="神保町">神保町</option>
-            <option value="北千住">北千住</option>
-            <option value="南町田">南町田</option>
-            <option value="木場">木場</option>
-            <option value="武蔵村山">武蔵村山</option>
-            <option value="秋川">秋川</option>
-            <option value="大森">大森</option>
-            <option value="飯田橋">飯田橋</option>
-            <option value="三軒茶屋">三軒茶屋</option>
-            <option value="品川">品川</option>
-            <option value="多摩センター">多摩センター</option>
-            <option value="平和島">平和島</option>
-            <option value="お台場">お台場</option>
-            <option value="東武練馬">東武練馬</option>
-            <option value="下高井戸">下高井戸</option>
-            <option value="新橋">新橋</option>
-            <option value="立川">立川</option>
-            <option value="大泉">大泉</option>
-            <option value="恵比寿">恵比寿</option>
-            <option value="水道橋">水道橋</option>
-            <option value="西新井">西新井</option>
-            <option value="府中">府中</option>
-            <option value="南大沢">南大沢</option>
-            <option value="下北沢">下北沢</option>
-            <option value="八王子">八王子</option>
-            <option value="船堀">船堀</option>
-            <option value="東中野">東中野</option>
-            <option value="昭島">昭島</option>
-            <option value="亀有">亀有</option>
-            <option value="目黒">目黒</option>
-            <option value="としまえん">としまえん</option>
-            <option value="豊洲">豊洲</option>
-            <option value="阿佐ヶ谷">阿佐ヶ谷</option>
-            <option value="高田馬場">高田馬場</option>
-            <option value="青梅">青梅</option>
-            <option value="日本橋">日本橋</option>
-            <option value="玉川">玉川</option>
-        </select>
+        <ul class="regionList">
+            <li v-for="item in regionList" :key="item.regionid" @click="regionSelect">
+                {{item.name}}
+            </li>
+        </ul>
+        <ul class="prefectureList">
+            <li v-for="item in prefectureList" :key="item.id" @click="prefectureSelect">
+                {{item.name}}
+            </li>
+        </ul>
+        <ul class="cityList">
+            <li v-for="item in cityList" :key="item.citycode">
+                {{item.city}}
+            </li>
+        </ul>
     </div>
 </template>
 <script>
+    /* import axios from "axios" */
+
     export default {
         name: "city",
+        data() {
+            return {
+                regionList: [],
+                prefectureList: [],
+                cityList: [],
+                region: "",
+                prefecture: "",
+            }
+        },
+
+        mounted() {
+            this.axios.get('http://127.0.0.1/api/test')
+                .then((res)=>{
+                    var msg = res.statusText;
+                    if (msg === "OK"){
+                        //console.log(res.data.cityList);
+                        this.regionList = res.data.cityList;
+                        this.prefectureList = this.regionList[0].prefectureList;
+                        this.cityList = this.prefectureList[0].city
+                    }                    
+                });
+        },
+
+        methods: {
+            regionSelect(e){
+                this.region = e.currentTarget.innerHTML;
+                this.prefectureList = this.regionList.filter(
+                        item => item.name == this.region
+                )[0].prefectureList;
+                this.cityList = this.prefectureList[0].city;                
+            },
+            prefectureSelect(e){
+                this.prefecture = e.currentTarget.innerHTML;
+                this.cityList = this.prefectureList.filter(
+                        item => item.name == this.prefecture
+                )[0].city;
+            }
+        }
     }
 </script>
 <style lang="scss" scoped>
     .city_select {
         width: 100%;
-        height: 45px;
+        height: 80px;
+        overflow: hidden;
         border-bottom: 1px solid #e6e6e6;
         display: flex;
-        select {
+        ul {
             flex: 1;
+            overflow: auto;
         }
     }
 </style>

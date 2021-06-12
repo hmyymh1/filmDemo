@@ -14,7 +14,7 @@ const routes = [
   {
     path: '/:notFind',
     redirect: '/movie'
-  }
+  },
 ]
 
 const router = createRouter({

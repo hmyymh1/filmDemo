@@ -2,12 +2,7 @@
     <div id="main">
         <Header />
             <div id="content">
-                <div class="movie_menu">
-                    <!-- <router-link to="/movie/cityList">
-                        <div class="city_name">
-                            <span>東京</span>
-                        </div>
-                    </router-link> -->
+                <div class="movie_menu">                   
                     <div class="hot_swtich">
                         <router-link to="/movie/nowPlaying">
                             <div class="hot_item">上映中</div>
