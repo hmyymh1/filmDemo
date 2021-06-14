@@ -7,4 +7,14 @@ import mock from './mock'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
-createApp(App).use(store).use(router).use(mock).use(VueAxios,axios).mount('#app')
+import BScroll from '@/components/BScroll'
+import loading from "@/components/Loading"
+
+createApp(App)
+    .use(store)
+    .use(router)
+    .use(mock)
+    .use(VueAxios,axios)
+    .component('bScroll',BScroll)
+    .component('loading',loading)
+        .mount('#app')

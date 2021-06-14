@@ -1,34 +1,39 @@
 <template lang="">
     <div class="movie_body">
-        <ul>
-            <li v-for="item in MovieList" :key="item.id">
-                <div class="pic_show"><img :src="item.thumbnail"></div>
-                <div class="info_list">
-                    <h2>{{item.name}}</h2>
-                    <p><svg class="icon" aria-hidden="true">
-                        <use xlink:href="#icon-star"></use>
-                      </svg> <span class="grade">{{item.rating == 0 ? "- -" : item.rating.toFixed(1)}}</span></p>
-                    <p><svg class="icon" aria-hidden="true">
-                        <use xlink:href="#icon-like"></use>
-                      </svg> <span>{{item.favCount}}</span></p>
-                    <p><svg class="icon" aria-hidden="true">
-                        <use xlink:href="#icon-comment"></use>
-                      </svg> <span>{{item.rateCount}}</span></p>
-                </div>
-                <div class="btn_mail">
-                    予約
-                </div>
-            </li>
-        </ul>
+        <loading v-if="isLoading"/>
+        <bScroll v-else :content="MovieList">
+            <ul>
+                <li v-for="item in MovieList" :key="item.id">
+                    <div class="pic_show" @tap="handleToDetail"><img :src="item.thumbnail"></div>
+                    <div class="info_list">
+                        <h2>{{item.name}}</h2>
+                        <p><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-star"></use>
+                          </svg> <span class="grade">{{item.rating == 0 ? "- -" : item.rating.toFixed(1)}}</span></p>
+                        <p><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-like"></use>
+                          </svg> <span>{{item.favCount}}</span></p>
+                        <p><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-comment"></use>
+                          </svg> <span>{{item.rateCount}}</span></p>
+                    </div>
+                    <div class="btn_mail">
+                        予約
+                    </div>
+                </li>
+            </ul>
+        </bScroll>
     </div>
 </template>
 <script>
+
 export default {
     name: "NowPlaying",
 
     data(){
         return {
             MovieList: [],
+            isLoading: true,
         }
     },
     
@@ -39,8 +44,15 @@ export default {
                     if (msg === "OK"){
                         //console.log(res.data.MovieList);
                         this.MovieList = res.data.MovieList;
+                        this.isLoading = false;
                     }                    
                 });
+    },
+
+    methods:{
+        handleToDetail(){
+            console.log('handleToDetail')
+        }
     }
 
 }

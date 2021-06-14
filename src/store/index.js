@@ -1,5 +1,8 @@
 import { createStore } from 'vuex'
 
+import prefecture from './prefecture'
+import region from './region'
+
 export default createStore({
   state: {
   },
@@ -8,5 +11,7 @@ export default createStore({
   actions: {
   },
   modules: {
+    prefecture,
+    region,
   }
 })
