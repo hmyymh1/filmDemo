@@ -20,9 +20,11 @@
                     </div>
                 </div>
 
-                <keep-alive>
-                    <router-view />
-                </keep-alive>   
+                <router-view v-slot="{ Component }">
+                    <keep-alive>
+                      <component :is="Component" />
+                    </keep-alive>
+                </router-view>   
             </div>
         <TabBar />
     </div>
@@ -55,15 +57,7 @@ export default {
             height: 45px;
             border-bottom: 1px solid #e6e6e6;
             display: flex;
-            /* .city_name {
-                margin-left: 20px;
-                height: 100%;
-                line-height: 45px;
-                .active {
-                    color: red;
-                    border: 2px solid red;
-                }
-            } */
+            margin-bottom: 3px;
             .hot_swtich {
                 display: flex;
                 height: 100%;

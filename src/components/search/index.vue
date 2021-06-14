@@ -5,27 +5,20 @@
                 <input type="text" v-model="searchValue" placeholder="作品を検索" >
             </div>
         </div>
-        <div class="search_result">            
-            <ul>                
-                <li v-for="item in searchList" :key="item.id">
-                    <div class="img"><img :src="item.thumbnail"></div>
-                    <div class="info">
-                        <h2>{{item.name}}</h2>
-                        <p>{{item.genre}}</p>
-                        <p>{{item.openDateString}} 公開</p>
-                        <p class="count">{{item.rating == 0 ? "- -" : item.rating.toFixed(1)}}</p>
-                    </div>
-                </li>
-                <li v-for="item in searchListCommingSoon" :key="item.id">
-                    <div class="img"><img :src="item.thumbnail"></div>
-                    <div class="info">
-                        <h2>{{item.name}}</h2>
-                        <p>{{item.genre}}</p>
-                        <p>{{item.openDateString}} 公開</p>
-                        <p class="count">{{item.rating == 0 ? "- -" : item.rating.toFixed(1)}}</p>
-                    </div>
-                </li>
-            </ul>
+        <div class="search_result">
+            <bScroll :content="searchValue">            
+                <ul>                
+                    <li v-for="item in searchList" :key="item.id">
+                        <div class="img"><img :src="item.thumbnail"></div>
+                        <div class="info">
+                            <h2>{{item.name}}</h2>
+                            <p>{{item.genre}}</p>
+                            <p>{{item.openDateString}} 公開</p>
+                            <p class="count">{{item.rating == 0 ? "- -" : item.rating.  toFixed(1)}}</p>
+                        </div>
+                    </li>
+                </ul>
+            </bScroll>
         </div>
     </div>
 </template>
@@ -36,7 +29,6 @@ export default {
     data(){
         return {
             MovieList: [],
-            MovieListCommingSoon : [],
             searchValue : "",
         }
     },
@@ -47,8 +39,7 @@ export default {
                     var msg = res.statusText;
                     if (msg === "OK"){
                         //console.log(res.data);
-                        this.MovieList = res.data.MovieList;
-                        this.MovieListCommingSoon = res.data.MovieListCommingSoon;
+                        this.MovieList = res.data.MovieList.concat(res.data.MovieListCommingSoon);
                     }                    
                 });
     },
@@ -59,11 +50,6 @@ export default {
                 item => item.name.indexOf(this.searchValue) > 0
             )
         },
-        searchListCommingSoon(){
-            return this.MovieListCommingSoon.filter(
-                item => item.name.indexOf(this.searchValue) > 0
-            )
-        }
     }
 }
 </script>
@@ -93,6 +79,8 @@ export default {
             }
         }
         .search_result {
+            height: calc(100% - 43px);
+            overflow: hidden;
             h3 {
                 font-size: 15px;
                 color: #999;
