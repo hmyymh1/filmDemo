@@ -41,6 +41,13 @@
       "unicode_decimal": 58939
     },
     {
+      "icon_id": "7372237",
+      "name": "返回",
+      "font_class": "fanhui",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
       "icon_id": "16619138",
       "name": "movie",
       "font_class": "movie",

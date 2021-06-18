@@ -1,6 +1,6 @@
 @font-face {
   font-family: "iconfont"; /* Project id  */
-  src: url('iconfont.ttf?t=1623115966715') format('truetype');
+  src: url('iconfont.ttf?t=1623723438086') format('truetype');
 }
 
 .iconfont {
@@ -29,6 +29,10 @@
 
 .icon-comment:before {
   content: "\e63b";
+}
+
+.icon-fanhui:before {
+  content: "\e601";
 }
 
 .icon-movie:before {
