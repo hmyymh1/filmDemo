@@ -1,5 +1,6 @@
 <template lang="">
     <header id="header">
+        <slot></slot>
         <h1>{{title}}</h1>
     </header>
 </template>
@@ -29,13 +30,6 @@ export default {
             text-align: center;
             line-height: 50px;
             font-weight: normal;
-        }
-        i {
-            position: absolute;
-            left: 5px;
-            top: 50%;
-            margin-top: -13px;
-            font-size: 26px;
         }
     }
 </style>

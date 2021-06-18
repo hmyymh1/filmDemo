@@ -4,8 +4,8 @@
         <bScroll v-else :content="MovieList">
             <ul>
                 <li v-for="item in MovieList" :key="item.id">
-                    <div class="pic_show" @tap="handleToDetail"><img :src="item.thumbnail"></div>
-                    <div class="info_list">
+                    <div class="pic_show" @tap="handleToDetail(item.id)"><img :src="item.thumbnail"></div>
+                    <div class="info_list" @tap="handleToDetail(item.id)">
                         <h2>{{item.name}}</h2>
                         <p><svg class="icon" aria-hidden="true">
                             <use xlink:href="#icon-star"></use>
@@ -50,8 +50,8 @@ export default {
     },
 
     methods:{
-        handleToDetail(){
-            console.log('handleToDetail')
+        handleToDetail(MovieID){
+            this.$router.push('/movie/detailpage/' + MovieID)
         }
     }
 

@@ -19,8 +19,13 @@ export default {
             component: () => import('@/components/search'),
         },
         {
-            path: '/movie',
-            redirect : '/movie/nowPlaying'
-        }
-    ]
+            path: 'detailpage/:MovieID',
+            name: 'detailpage',
+            components: {
+                detailpage : () => import('@/views/movie/detailPage'),
+                default: () => import('@/components/nowPlaying'),
+            },
+        },
+    ],
+    redirect : '/movie/nowPlaying'
 }

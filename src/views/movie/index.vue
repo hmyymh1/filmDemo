@@ -1,32 +1,33 @@
 <template lang="">
     <div id="main">
         <Header />
-            <div id="content">
-                <div class="movie_menu">                   
-                    <div class="hot_swtich">
-                        <router-link to="/movie/nowPlaying">
-                            <div class="hot_item">上映中</div>
-                        </router-link>
-                        <router-link to="/movie/commingSoon">
-                            <div class="hot_item">公開予定</div>
-                        </router-link>
-                        <router-link to="/movie/search">
-                            <div class="hot_item">
-                                <svg class="icon" aria-hidden="true">
-                                    <use xlink:href="#icon-search"></use>
-                                </svg>
-                            </div>
-                        </router-link>
-                    </div>
+        <div id="content">
+            <div class="movie_menu">                   
+                <div class="hot_swtich">
+                    <router-link to="/movie/nowPlaying">
+                        <div class="hot_item">上映中</div>
+                    </router-link>
+                    <router-link to="/movie/commingSoon">
+                        <div class="hot_item">公開予定</div>
+                    </router-link>
+                    <router-link to="/movie/search">
+                        <div class="hot_item">
+                            <svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-search"></use>
+                            </svg>
+                        </div>
+                    </router-link>
                 </div>
-
-                <router-view v-slot="{ Component }">
-                    <keep-alive>
-                      <component :is="Component" />
-                    </keep-alive>
-                </router-view>   
             </div>
+
+            <router-view v-slot="{ Component }">
+                <keep-alive>
+                  <component :is="Component" />
+                </keep-alive>
+            </router-view>   
+        </div>
         <TabBar />
+        <router-view name="detailpage"/>
     </div>
 </template>
 <script>
